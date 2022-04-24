@@ -32,6 +32,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.apache.skywalking.apm.plugin.logback.Constants.SEGMENT_ID;
 import static org.apache.skywalking.apm.plugin.logback.Constants.SPAN_ID;
 import static org.apache.skywalking.apm.plugin.logback.Constants.TRACE_ID;
 
@@ -62,12 +63,15 @@ public class LoggingEventInterceptor implements InstanceMethodsAroundInterceptor
             (SkyWalkingContext) ((EnhancedInstance) allArguments[0]).getSkyWalkingDynamicField();
         if (skyWalkingContext != null) {
           spanContextData.put(TRACE_ID, skyWalkingContext.getTraceId());
+          String segmentId = (String) FieldUtils.readField(skyWalkingContext, "traceSegmentId", true);
+          spanContextData.put(SEGMENT_ID, segmentId);
           int spanId = (int) FieldUtils.readField(skyWalkingContext, "spanId", true);
           spanContextData.put(SPAN_ID, String.valueOf(spanId));
         }
       }
     } else {
       spanContextData.put(TRACE_ID, ContextManager.getGlobalTraceId());
+      spanContextData.put(SEGMENT_ID, ContextManager.getSegmentId());
       spanContextData.put(SPAN_ID, String.valueOf(ContextManager.getSpanId()));
     }
 

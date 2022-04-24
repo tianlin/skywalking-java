@@ -21,5 +21,7 @@ package org.apache.skywalking.apm.plugin.logback;
 public class Constants {
   public static final String TRACE_ID = "trace_id";
 
+  public static final String SEGMENT_ID = "segment_id";
+
   public static final String SPAN_ID = "span_id";
 }

@@ -29,7 +29,8 @@ public class LogbackPluginConfig {
        * PatternLayoutInterceptor will replace OLD_LAYOUT_PATTERN_REGEX with NEW_LAYOUT_PATTERN
        */
       public static String OLD_LAYOUT_PATTERN_REGEX = "%m|%msg|%message";
-      public static String NEW_LAYOUT_PATTERN = "TID: %mdc{trace_id} SPANID: %mdc{span_id} %m";
+      public static String NEW_LAYOUT_PATTERN =
+          "TID: %mdc{trace_id} SEGMENTID: %mdc{segment_id} SPANID: %mdc{span_id} %m";
     }
   }
 
